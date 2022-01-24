@@ -1,3 +1,4 @@
+
 from PIL import Image
 import numpy as np 
 from sklearn.neural_network import MLPClassifier
@@ -26,7 +27,7 @@ clf.fit(x_train, y_train)
 
 prediction = clf.predict(x_test)
 acc = confusion_matrix(y_test , prediction)
-print(acc)
+
 #do trace of matrix / all elements in the matrix summed up 
 
 def accuracy(cm):
@@ -35,3 +36,16 @@ def accuracy(cm):
     return diagonal/elements
 
 print(accuracy(acc))
+
+
+#test on Number made by me
+img = Image.open('Five.png')
+data = list(img.getdata())
+
+#data is the opposite of mnist data set so we need to inverse the data 
+for i in range(len(data)):
+    data[i] = 255 - data[i]
+Five = np.array(data)/256
+
+p = clf.predict([Five])
+print(p)
